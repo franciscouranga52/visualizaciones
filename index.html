@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Tax Calculator</title>
+    <title>Property Tax Estimator</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -76,11 +76,11 @@
     <div id="property-tax-calculator">
         <div>
             <h1>Property Tax Calculator</h1>
-            <label for="old-value-embed">Old Property Value:</label>
+            <label for="old-value-embed">Old Property Assessment:</label>
             <input type="number" id="old-value-embed" placeholder="Enter old value">
-            <label for="new-value-embed">New Property Value:</label>
+            <label for="new-value-embed">New Property Assessment:</label>
             <input type="number" id="new-value-embed" placeholder="Enter new value">
-            <label for="mill-rate-embed">New Mill Rate:</label>
+            <label for="mill-rate-embed">Estimated Mill Rate:</label>
             <input type="number" id="mill-rate-embed" value="15">
             <button onclick="calculateTaxesEmbed()">Calculate</button>
             <div id="results-embed"></div>
