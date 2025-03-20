@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Tax Calculator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        #property-tax-calculator {
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 600px;
+        }
+        #property-tax-calculator > div {
+            background-color: white;
+            padding: 2em;
+            border-radius: 1em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #007aff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #results-embed {
+            margin-top: 20px;
+        }
+        #results-embed > div {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="property-tax-calculator">
+        <div>
+            <h1>Property Tax Calculator</h1>
+            <label for="old-value-embed">Old Property Value:</label>
+            <input type="number" id="old-value-embed" placeholder="Enter old value">
+            <label for="new-value-embed">New Property Value:</label>
+            <input type="number" id="new-value-embed" placeholder="Enter new value">
+            <label for="mill-rate-embed">New Mill Rate:</label>
+            <input type="number" id="mill-rate-embed" value="15">
+            <button onclick="calculateTaxesEmbed()">Calculate</button>
+            <div id="results-embed"></div>
+        </div>
+    </div>
+    <script>
+        function calculateTaxesEmbed() {
+            function formatNumber(num) {
+                return num.toLocaleString('en-US');
+            }
+
+            const oldValue = parseFloat(document.getElementById('old-value-embed').value);
+            const newValue = parseFloat(document.getElementById('new-value-embed').value);
+            const millRate = parseFloat(document.getElementById('mill-rate-embed').value);
+
+            if (isNaN(oldValue) || isNaN(newValue) || isNaN(millRate) || oldValue <= 0) {
+                alert('Please enter valid numeric values.');
+                return;
+            }
+
+            const oldTax = Math.round(oldValue * 24.4 / 1000);
+            const newTax = Math.round(newValue * millRate / 1000);
+            const taxIncrease = newTax - oldTax;
+            const taxIncreasePercentage = oldTax !== 0 ? Math.round((taxIncrease / oldTax) * 100) : 0;
+            const propertyValueIncreasePercentage = Math.round(((newValue / oldValue) - 1) * 100);
+            const averagePropertyValueIncreasePercentage = 68;
+
+            document.getElementById('results-embed').innerHTML = `
+                <div>Old Tax: $${formatNumber(oldTax)}</div>
+                <div>New Tax: $${formatNumber(newTax)}</div>
+                <div>Tax Increase: $${formatNumber(taxIncrease)}</div>
+                <div>Percentage Tax Increase: ${taxIncreasePercentage}%</div>
+                <div>Percentage Property Value Increase: ${propertyValueIncreasePercentage}%</div>
+                <div>Average Property Value Increase: ${averagePropertyValueIncreasePercentage}%</div>
+            `;
+        }
+    </script>
+</body>
+</html>
